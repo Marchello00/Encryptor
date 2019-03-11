@@ -1,7 +1,7 @@
 from takes import takes
 import string
 
-# it's without 'ёЁ'
+# Without 'ёЁ'
 russian_alphabet = ''.join(map(chr, range(ord('а'), ord('я') + 1))) + \
                    ''.join(map(chr, range(ord('А'), ord('Я') + 1)))
 
@@ -35,23 +35,38 @@ class Alphabet:
         self.set_alphabet(russian_alphabet)
 
     def set_all(self):
-        self.set_alphabet(string.ascii_letters + \
+        self.set_alphabet(string.ascii_letters +
                           russian_alphabet + string.punctuation +
                           string.whitespace)
 
     def get_alphabet(self):
         return self.__alphabet
 
-    def shift(self, letter, k):
+    def ord(self, letter):
         if self.__consecutive:
-            code_now = ord(letter) - ord(self.__alphabet[0])
+            code = ord(letter) - ord(self.__alphabet[0])
         else:
-            code_now = self.__alphabet.find(letter)
+            code = self.__alphabet.find(letter)
+        if code < 0 or len(self.__alphabet) <= code:
+            raise ValueError("Symbol must be from alphabet")
+        return code
+
+    def shift(self, letter, k):
+        code = self.ord(letter)
         n = len(self.__alphabet)
         k = (k % n + n) % n
-        return self.__alphabet[(code_now + k) % n]
+        return self.__alphabet[(code + k) % n]
+
+    @takes(object, str)
+    def anti_word(self, word):
+        new_word = ''
+        for c in word:
+            if c not in self.__alphabet:
+                raise ValueError("Word can contain only symbols from alphabet")
+            new_word += self.__alphabet[-self.ord(c)]
+        return new_word
 
     def __init__(self):
-        self.__alphabet = 'a'
-        self.__consecutive = True
+        self.__alphabet = None
+        self.__consecutive = None
         self.set_letters_alphabet()
