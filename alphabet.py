@@ -39,8 +39,17 @@ class Alphabet:
                           russian_alphabet + string.punctuation +
                           string.whitespace)
 
+    def set_binary_alphabet(self):
+        self.set_alphabet('01')
+
+    def set_hexdigits_alphabet(self):
+        self.set_alphabet(string.hexdigits)
+
     def get_alphabet(self):
         return self.__alphabet
+
+    def __len__(self):
+        return len(self.__alphabet)
 
     def ord(self, letter):
         if self.__consecutive:
@@ -50,6 +59,11 @@ class Alphabet:
         if code < 0 or len(self.__alphabet) <= code:
             raise ValueError("Symbol must be from alphabet")
         return code
+
+    def chr(self, code):
+        if code < 0 or len(self.__alphabet) < code:
+            raise ValueError("Wrong code(it's not in your alphabet)")
+        return self.__alphabet[code]
 
     def shift(self, letter, k):
         code = self.ord(letter)
@@ -66,7 +80,7 @@ class Alphabet:
             new_word += self.__alphabet[-self.ord(c)]
         return new_word
 
-    def __init__(self):
+    def __init__(self, alphabet=string.ascii_letters):
         self.__alphabet = None
         self.__consecutive = None
-        self.set_letters_alphabet()
+        self.set_alphabet(alphabet)
