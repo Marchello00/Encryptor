@@ -1,5 +1,6 @@
 from takes import takes
 import string
+import functools
 
 # Without 'ёЁ'
 russian_alphabet = ''.join(map(chr, range(ord('а'), ord('я') + 1))) + \
@@ -51,6 +52,7 @@ class Alphabet:
     def __len__(self):
         return len(self.__alphabet)
 
+    @functools.lru_cache(10)
     def ord(self, letter):
         if self.__consecutive:
             code = ord(letter) - ord(self.__alphabet[0])
