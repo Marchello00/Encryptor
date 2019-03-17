@@ -65,16 +65,16 @@ class Analyser:
         return get_words_analyse(text, self.words) / self.avg_words + \
                get_letters_analyse(text, self.letters) / self.avg_letters + \
                get_n_grams_analyse(text, self.n,
-                                   self.n_grams) / self.avg_n_gramms
+                                   self.n_grams) / self.avg_n_grams
 
     def __init__(self, text='', n_grams=None, dont_ignore_punc=False,
-                 top_n_words=None):
+                 top_n_words=None, count_avg=False):
         self.text = text
         self.letters = dict()
         self.words = dict()
         self.n = 0
         self.n_grams = dict()
-        self.analyse(n_grams, dont_ignore_punc, top_n_words)
+        self.analyse(n_grams, dont_ignore_punc, top_n_words, count_avg)
         self.avg_words, self.avg_letters, self.avg_n_grams = 1, 1, 1
 
 
