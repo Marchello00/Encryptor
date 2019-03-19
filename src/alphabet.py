@@ -52,6 +52,9 @@ class Alphabet:
     def __len__(self):
         return len(self.__alphabet)
 
+    def __str__(self):
+        return self.__alphabet
+
     @functools.lru_cache(10)
     def ord(self, letter):
         if self.__consecutive:
