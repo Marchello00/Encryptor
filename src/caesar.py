@@ -1,4 +1,4 @@
-from alphabet import Alphabet
+from src.alphabet import Alphabet
 
 
 def encrypt(text, key, alphabet=Alphabet()):

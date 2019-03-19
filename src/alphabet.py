@@ -1,4 +1,4 @@
-from takes import takes
+from src.takes import takes
 import string
 import functools
 
@@ -17,11 +17,11 @@ class Alphabet:
         return True
 
     @takes(object, str)
-    def set_alphabet(self, new_alph):
-        if not new_alph:
+    def set_alphabet(self, new_alphabet):
+        if not new_alphabet:
             raise ValueError("Alphabet can't be empty")
-        self.__alphabet = new_alph
-        self.__consecutive = self.__check_for_consecutive(new_alph)
+        self.__alphabet = new_alphabet
+        self.__consecutive = self.__check_for_consecutive(new_alphabet)
 
     def set_big_letters_alphabet(self):
         self.set_alphabet(string.ascii_uppercase)

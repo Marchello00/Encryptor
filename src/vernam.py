@@ -1,5 +1,5 @@
-from alphabet import Alphabet
-import vigenere
+from src.alphabet import Alphabet
+from src import vigenere
 import math
 
 
