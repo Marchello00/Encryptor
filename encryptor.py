@@ -6,7 +6,7 @@ from contextlib import contextmanager
 import src.alphabet as ab
 import src.caesar as c
 import src.vigenere as vg
-import src.vernam as vr
+import src.vernam as vn
 import src.analyser as an
 
 
@@ -136,24 +136,36 @@ def get_alphabet(choise):
 def main():
     args = parse_args()
     if args.act in ['encode', 'decode']:
+        with smart_open(args.input_file, 'r') as i:
+            text = i.read()
+        if args.file_alphabet:
+            with open(args.file_alphabet, 'r') as a:
+                alphabet = ab.Alphabet(a.read())
+        else:
+            alphabet = get_alphabet(args.alphabet)
         if args.cipher == 'caesar':
             try:
                 args.key = int(args.key)
             except Exception:
                 print('Key for caesar cipher must be integer value')
                 return
-            with smart_open(args.input_file, 'r') as i:
-                text = i.read()
-            if args.file_alphabet:
-                with open(args.file_alphabet, 'r') as a:
-                    alphabet = ab.Alphabet(a.read())
-            else:
-                alphabet = get_alphabet(args.alphabet)
             with smart_open(args.output_file, 'w') as o:
                 if args.act == 'encode':
                     o.write(c.encrypt(text, args.key, alphabet))
                 else:
                     o.write(c.decrypt(text, args.key, alphabet))
+        if args.cipher == 'vigenere':
+            with smart_open(args.output_file, 'w') as o:
+                if args.act == 'encode':
+                    o.write(vg.encrypt(text, args.key, alphabet))
+                else:
+                    o.write(vg.decrypt(text, args.key, alphabet))
+        if args.cipher == 'vernam':
+            with smart_open(args.output_file, 'w') as o:
+                if args.act == 'encode':
+                    o.write(vn.encrypt(text, args.key, alphabet))
+                else:
+                    o.write(vn.decrypt(text, args.key, alphabet))
 
 
 if __name__ == '__main__':
