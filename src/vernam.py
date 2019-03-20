@@ -19,21 +19,26 @@ def binary_to_text(binary, alphabet=Alphabet()):
     k = __int_log(len(alphabet))
     result = ''
     for i in range(0, len(binary), k):
-        result += alphabet.chr(int(binary[i:i+k], 2))
+        result += alphabet.chr(int(binary[i:i + k], 2))
     return result
 
 
 def encrypt(text, key, alphabet=Alphabet()):
-    k = __int_log(len(alphabet.get_alphabet()))
-    if len(key) == k * len(text):
-        text = text_to_binary(text, alphabet)
-    elif len(text) == k * len(key):
-        key = text_to_binary(key, alphabet)
-    else:
-        key = text_to_binary(key, alphabet)
-        text = text_to_binary(text, alphabet)
+    k = __int_log(len(alphabet))
+    try:
+        if len(key) == k * len(text):
+            text = text_to_binary(text, alphabet)
+        elif len(text) == k * len(key):
+            key = text_to_binary(key, alphabet)
+        else:
+            key = text_to_binary(key, alphabet)
+            text = text_to_binary(text, alphabet)
+    except ValueError:
+        raise ValueError('For vernam cipher all symbols must be from alphabet')
     if len(key) != len(text):
-        raise ValueError("Key must be as long as message")
+        raise ValueError('Key must be as long as message, '
+                         'message len is {mes} and key len is {key}'.format(
+                            mes=len(text) // k, key=len(key) // k))
     return vigenere.encrypt(text, key, Alphabet('01'))
 
 

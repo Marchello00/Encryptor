@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3
 
-import sys, os
+import sys, traceback
 import argparse
 from contextlib import contextmanager
 import src.alphabet as ab
@@ -110,6 +110,7 @@ def parse_args():
 
 @contextmanager
 def smart_open(file, mode):
+    opened = False
     try:
         if not file:
             if mode in ['w', 'a', 'wb']:
@@ -118,11 +119,12 @@ def smart_open(file, mode):
                 f = sys.stdin
         else:
             f = open(file, mode)
+            opened  = True
         yield f
     except Exception:
         raise
     finally:
-        if file:
+        if opened:
             f.close()
 
 
@@ -148,6 +150,12 @@ def get_alphabet(choise):
 def main():
     args = parse_args()
     if args.act in ['encode', 'decode']:
+        if args.cipher == 'caesar':
+            try:
+                args.key = int(args.key)
+            except Exception:
+                print('Key for caesar cipher must be integer value')
+                return
         with smart_open(args.input_file, 'r') as i:
             text = i.read()
         if args.file_alphabet:
@@ -156,11 +164,6 @@ def main():
         else:
             alphabet = get_alphabet(args.alphabet)
         if args.cipher == 'caesar':
-            try:
-                args.key = int(args.key)
-            except Exception:
-                print('Key for caesar cipher must be integer value')
-                return
             with smart_open(args.output_file, 'w') as o:
                 if args.act == 'encode':
                     o.write(c.encrypt(text, args.key, alphabet))
@@ -202,4 +205,7 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except Exception as e:
+        print(sys.exc_info()[1])
