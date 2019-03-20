@@ -44,16 +44,18 @@ class Analyser:
 
     def count_avg(self):
         w = re.findall(r'\w+', self.text)
-        part = int(sqrt(len(w)))
-        self.avg_letters, self.avg_words, self.avg_n_gramms = 0, 0, 0
-        for i in range(len(w) - part):
-            self.avg_words += get_words_analyse(self.text, self.words)
-            self.avg_letters += get_letters_analyse(self.text, self.letters)
-            self.avg_n_gramms += get_n_grams_analyse(self.text, self.n,
-                                                     self.n_grams)
-        self.avg_words /= len(w) - part
-        self.avg_letters /= len(w) - part
-        self.avg_n_gramms /= len(w) - part
+        part = min(1000, int(sqrt(len(w))))
+        self.avg_letters, self.avg_words, self.avg_n_grams = 0, 0, 0
+        for i in range(0, len(w), part):
+            self.avg_words += get_words_analyse(self.text[i:i + part],
+                                                self.words)
+            self.avg_letters += get_letters_analyse(self.text[i:i + part],
+                                                    self.letters)
+            self.avg_n_grams += get_n_grams_analyse(self.text[i:i + part],
+                                                    self.n, self.n_grams)
+        self.avg_words /= len(w) / part
+        self.avg_letters /= len(w) / part
+        self.avg_n_grams /= len(w) / part
 
     def analyse(self, n_grams=None, dont_ignore_punc=False, top_n_words=None,
                 count_avg=False):
@@ -76,8 +78,8 @@ class Analyser:
         self.words = dict()
         self.n = 0
         self.n_grams = dict()
-        self.analyse(n_grams, dont_ignore_punc, top_n_words, count_avg)
         self.avg_words, self.avg_letters, self.avg_n_grams = 1, 1, 1
+        self.analyse(n_grams, dont_ignore_punc, top_n_words, count_avg)
 
     def dump(self):
         return {key: self.__getattribute__(key) for key in self.__dict__}

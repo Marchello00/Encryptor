@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3
 
-import sys
+import sys, os
 import argparse
 from contextlib import contextmanager
 import src.alphabet as ab
@@ -68,15 +68,15 @@ def parse_args():
                                               'on your text')
     train_parser.add_argument('--text_file', '-i',
                               help='Text for training')
-    train_parser.add_argument('--model-file', '-m',
+    train_parser.add_argument('--model_file', '-m',
                               help='Trained model '
                                    'will be written to this file')
-    train_parser.add_argument('--ngrams', '-n',
+    train_parser.add_argument('--ngrams', '-n', type=int,
                               help='N for n-grams analyse')
     train_parser.add_argument('--punc', '-p', action='store_true',
                               help='If exist punctuation will be '
                                    'also analysed')
-    train_parser.add_argument('--top', '-t',
+    train_parser.add_argument('--top', '-t', type=int,
                               help='How many most common words remember')
     train_parser.add_argument('--count_avg', '-c', action='store_true',
                               help='Count average statistics on your text'
@@ -87,10 +87,11 @@ def parse_args():
     hack_parser.add_argument('--input_file', '-i',
                              help='Encoded message '
                                   'will be read from this file')
-    hack_parser.add_argument('--output-file', '-o',
+    hack_parser.add_argument('--output_file', '-o',
                              help='Decoded message '
                                   'will be written to this file')
-    hack_parser.add_argument('--model-file', '-m',
+    hack_parser.add_argument('--model_file', '-m',
+                             default='models/eng',
                              help='Trained model '
                                   'will be loaded from this file')
     hack_alph = hack_parser.add_mutually_exclusive_group()
@@ -183,8 +184,12 @@ def main():
         analyse = an.Analyser(
             text, args.ngrams, args.punc, args.top, args.count_avg
         )
+        print(analyse.avg_letters, analyse.avg_words, analyse.avg_n_grams)
         with smart_open(args.model_file, 'w') as o:
             json.dump(analyse.dump(), o)
+    elif args.act == 'hack':
+        with smart_open(args.input_file, 'r') as i:
+            text = i.read()
 
 
 if __name__ == '__main__':
