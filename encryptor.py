@@ -8,6 +8,7 @@ import src.caesar as c
 import src.vigenere as vg
 import src.vernam as vn
 import src.analyser as an
+import json
 
 
 def parse_args():
@@ -65,11 +66,21 @@ def parse_args():
     train_parser = subparsers.add_parser('train',
                                          help='Create train model '
                                               'on your text')
-    train_parser.add_argument('--text_file', '-t',
+    train_parser.add_argument('--text_file', '-i',
                               help='Text for training')
     train_parser.add_argument('--model-file', '-m',
                               help='Trained model '
                                    'will be written to this file')
+    train_parser.add_argument('--ngrams', '-n',
+                              help='N for n-grams analyse')
+    train_parser.add_argument('--punc', '-p', action='store_true',
+                              help='If exist punctuation will be '
+                                   'also analysed')
+    train_parser.add_argument('--top', '-t',
+                              help='How many most common words remember')
+    train_parser.add_argument('--count_avg', '-c', action='store_true',
+                              help='Count average statistics on your text'
+                                   '(may work slower)')
     train_parser.set_defaults(act='train')
 
     hack_parser = subparsers.add_parser('hack', help='Try to hack message')
@@ -166,6 +177,14 @@ def main():
                     o.write(vn.encrypt(text, args.key, alphabet))
                 else:
                     o.write(vn.decrypt(text, args.key, alphabet))
+    elif args.act == 'train':
+        with smart_open(args.text_file, 'r') as i:
+            text = i.read()
+        analyse = an.Analyser(
+            text, args.ngrams, args.punc, args.top, args.count_avg
+        )
+        with smart_open(args.model_file, 'w') as o:
+            json.dump(analyse.dump(), o)
 
 
 if __name__ == '__main__':

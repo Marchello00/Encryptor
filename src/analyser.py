@@ -4,6 +4,8 @@ from math import sqrt
 
 
 def freq(dct, summ=None):
+    if not dct:
+        return dct
     if not summ:
         summ = sum(dct.values())
     if not summ:
@@ -76,6 +78,15 @@ class Analyser:
         self.n_grams = dict()
         self.analyse(n_grams, dont_ignore_punc, top_n_words, count_avg)
         self.avg_words, self.avg_letters, self.avg_n_grams = 1, 1, 1
+
+    def dump(self):
+        return {key: self.__getattribute__(key) for key in self.__dict__}
+
+    def load(self, model):
+        for attr in self.__dict__:
+            if attr not in model:
+                raise ValueError('Model corrupted!')
+            self.__setattr__(attr, model[attr])
 
 
 def get_words_analyse(text, words_freq):
