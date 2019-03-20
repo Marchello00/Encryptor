@@ -120,7 +120,7 @@ def smart_open(file, mode):
             f = open(file, mode)
         yield f
     except Exception:
-        pass
+        raise
     finally:
         if file:
             f.close()
@@ -184,12 +184,21 @@ def main():
         analyse = an.Analyser(
             text, args.ngrams, args.punc, args.top, args.count_avg
         )
-        print(analyse.avg_letters, analyse.avg_words, analyse.avg_n_grams)
         with smart_open(args.model_file, 'w') as o:
             json.dump(analyse.dump(), o)
     elif args.act == 'hack':
         with smart_open(args.input_file, 'r') as i:
             text = i.read()
+        analyse = an.Analyser()
+        with smart_open(args.model_file, 'r') as m:
+            analyse.load(json.load(m))
+        if args.file_alphabet:
+            with open(args.file_alphabet, 'r') as a:
+                alphabet = ab.Alphabet(a.read())
+        else:
+            alphabet = get_alphabet(args.alphabet)
+        with smart_open(args.output_file, 'w') as o:
+            o.write(c.hack(text, analyse, alphabet))
 
 
 if __name__ == '__main__':
