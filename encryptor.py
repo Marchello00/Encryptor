@@ -1,6 +1,6 @@
 #!/usr/local/bin/python3
 
-import sys, traceback
+import sys
 import argparse
 from contextlib import contextmanager
 import src.alphabet as ab
@@ -111,15 +111,16 @@ def parse_args():
 @contextmanager
 def smart_open(file, mode):
     opened = False
+    write = mode in ['w', 'a', 'wb']
     try:
         if not file:
-            if mode in ['w', 'a', 'wb']:
+            if write:
                 f = sys.stdout
             else:
                 f = sys.stdin
         else:
             f = open(file, mode)
-            opened  = True
+            opened = True
         yield f
     except Exception:
         raise
@@ -181,9 +182,12 @@ def main():
                     o.write(vn.encrypt(text, args.key, alphabet))
                 else:
                     o.write(vn.decrypt(text, args.key, alphabet))
+                o.write('\n')
     elif args.act == 'train':
         with smart_open(args.text_file, 'r') as i:
             text = i.read()
+        if not text:
+            raise ValueError('Text must be non-empty')
         analyse = an.Analyser(
             text, args.ngrams, args.punc, args.top, args.count_avg
         )
@@ -194,7 +198,10 @@ def main():
             text = i.read()
         analyse = an.Analyser()
         with smart_open(args.model_file, 'r') as m:
-            analyse.load(json.load(m))
+            try:
+                analyse.load(json.load(m))
+            except Exception:
+                raise ValueError('Model file is corrupted!')
         if args.file_alphabet:
             with open(args.file_alphabet, 'r') as a:
                 alphabet = ab.Alphabet(a.read())

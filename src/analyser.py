@@ -39,12 +39,12 @@ class Analyser:
         else:
             for i in range(0, len(text) - n):
                 dct[text[i:i + n]].append(text[i + n])
-        self.n_grams = {key: Counter(val) for key, val in dct.items()}
+        self.n_grams = {key: freq(Counter(val)) for key, val in dct.items()}
         return self.n_grams
 
     def count_avg(self):
         w = re.findall(r'\w+', self.text)
-        part = min(1000, int(sqrt(len(w))))
+        part = max(min(1000, int(sqrt(len(w)))), 1)
         self.avg_letters, self.avg_words, self.avg_n_grams = 0, 0, 0
         for i in range(0, len(w), part):
             self.avg_words += get_words_analyse(self.text[i:i + part],
@@ -56,6 +56,12 @@ class Analyser:
         self.avg_words /= len(w) / part
         self.avg_letters /= len(w) / part
         self.avg_n_grams /= len(w) / part
+        if not self.avg_letters:
+            self.avg_letters = 1
+        if not self.avg_words:
+            self.avg_words = 1
+        if not self.avg_n_grams:
+            self.avg_n_grams = 1
 
     def analyse(self, n_grams=None, dont_ignore_punc=False, top_n_words=None,
                 count_avg=False):
