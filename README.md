@@ -180,3 +180,13 @@ $ cat out.txt
 $ ./encryptor.py hack -i out.txt -m models/rus -a rus
 Привет, как дела?
 ```
+
+## Установка
+
+Можно пользоваться скриптом encryptor.py, находящимся в папке encryptor,
+а можно установить его при помощи setup.py (в таком случае во всех
+примерах выше стоит заменить ./encryptor.py на просто encryptor)
+
+```
+$ python setup.py install
+```
