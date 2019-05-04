@@ -1,0 +1,104 @@
+{
+  "0": {
+    "plain": "lol",
+    "variants": [
+      {
+        "key": "abra",
+        "encrypted": "lpC"
+      },
+      {
+        "key": "kdsn",
+        "encrypted": "vrD"
+      }
+    ],
+    "type": ["register"],
+    "alphabet": "eng"
+  },
+  "1": {
+    "plain": "lOl",
+    "variants": [
+      {
+        "key": "abra",
+        "encrypted": "lPC"
+      }
+    ],
+    "type": ["register"],
+    "alphabet": "eng"
+  },
+  "2": {
+    "plain": "Lol",
+    "variants": [
+      {
+        "key": "kei",
+        "encrypted": "Vst"
+      }
+    ],
+    "type": ["register"],
+    "alphabet": "eng"
+  },
+  "3": {
+    "plain": "LOL",
+    "variants": [
+      {
+        "key": "ovb",
+        "encrypted": "ZjM"
+      }
+    ],
+    "type": ["register"],
+    "alphabet": "eng"
+  },
+  "4": {
+    "plain": "Privet, kek",
+    "variants": [
+      {
+        "key": "oxcwjsl",
+        "encrypted": "dOkRnL, vsH"
+      }
+    ],
+    "type": ["punctuation"],
+    "alphabet": "eng"
+  },
+  "5": {
+    "plain": "IeTO.Pro,STo!test???;da",
+    "variants": [
+      {
+        "key": "kcvhwpw",
+        "encrypted": "SgoV.lGK,cVJ!AAHP???;nc"
+      }
+    ],
+    "type": ["punctuation"],
+    "alphabet": "eng"
+  },
+  "6": {
+    "plain": "The Army is already here!",
+    "variants": [
+      {
+        "key": "BANAN",
+        "encrypted": "uHR aeNY VS NMRRAQZ HRRR!"
+      },
+      {
+        "key": "AFRICA",
+        "encrypted": "tMV iTMY Nj INREFUg JERJ!"
+      },
+      {
+        "key": "RussiAForever",
+        "encrypted": "KBw SzMd wJ eGvvRxQ zmRJ!"
+      }
+    ],
+    "type": ["hack"],
+    "model": "encryptor/models/eng",
+    "alphabet": "eng"
+  },
+  "7": {
+    "plain": "I'm superhero and I know all about MARVEL",
+    "variants": [
+      {
+        "key": "NonAmEs",
+        "encrypted": "v'A FUBIJUsEO mRv v yAOI EDY ooOGX enfieX"
+      }
+    ],
+    "type": ["hack"],
+    "model": "encryptor/models/eng",
+    "alphabet": "eng"
+  }
+}
