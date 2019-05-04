@@ -1,5 +1,5 @@
-from src.alphabet import Alphabet
-from src import vigenere
+from encryptor.src.alphabet import Alphabet
+from encryptor.src import vigenere
 import math
 
 

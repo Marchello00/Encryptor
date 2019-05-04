@@ -1,4 +1,4 @@
-from src.takes import takes
+from encryptor.src.takes import takes
 import string
 import functools
 
