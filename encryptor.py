@@ -16,7 +16,8 @@ def parse_args():
     alphabets = ['eng', 'engpunc', 'engup', 'rus', 'bin', 'hex', 'all']
 
     parser = argparse.ArgumentParser()
-    subparsers = parser.add_subparsers(help='List of commands')
+    subparsers = parser.add_subparsers(help='List of commands', dest='action')
+    subparsers.required = True
 
     encode_parser = subparsers.add_parser('encode', help='Encode message')
     encode_parser.add_argument('--cipher', '-c', required=True,
@@ -24,9 +25,9 @@ def parse_args():
                                help='Encryption algorithm')
     encode_parser.add_argument('--key', '-k', required=True,
                                help='Key which will used for encoding message')
-    encode_parser.add_argument('--input_file', '-i',
+    encode_parser.add_argument('--input-file', '-i',
                                help='Message will be read from this file')
-    encode_parser.add_argument('--output_file', '-o',
+    encode_parser.add_argument('--output-file', '-o',
                                help='Encoded message '
                                     'will be written to this file')
     encode_alph = encode_parser.add_mutually_exclusive_group()
@@ -46,10 +47,10 @@ def parse_args():
                                help='Encryption algorithm')
     decode_parser.add_argument('--key', '-k', required=True,
                                help='Key what was used for encoding message')
-    decode_parser.add_argument('--input_file', '-i',
+    decode_parser.add_argument('--input-file', '-i',
                                help='Encoded message '
                                     'will be read from this file')
-    decode_parser.add_argument('--output_file', '-o',
+    decode_parser.add_argument('--output-file', '-o',
                                help='Decoded message '
                                     'will be written to this file')
     decode_alph = decode_parser.add_mutually_exclusive_group()
@@ -84,10 +85,10 @@ def parse_args():
     train_parser.set_defaults(act='train')
 
     hack_parser = subparsers.add_parser('hack', help='Try to hack message')
-    hack_parser.add_argument('--input_file', '-i',
+    hack_parser.add_argument('--input-file', '-i',
                              help='Encoded message '
                                   'will be read from this file')
-    hack_parser.add_argument('--output_file', '-o',
+    hack_parser.add_argument('--output-file', '-o',
                              help='Decoded message '
                                   'will be written to this file')
     hack_parser.add_argument('--model_file', '-m',
