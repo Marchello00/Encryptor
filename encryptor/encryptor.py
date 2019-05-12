@@ -3,11 +3,11 @@
 import sys
 import argparse
 from contextlib import contextmanager
-import src.alphabet as ab
-import src.caesar as c
-import src.vigenere as vg
-import src.vernam as vn
-import src.analyser as an
+import encryptor.src.alphabet as ab
+import encryptor.src.caesar as c
+import encryptor.src.vigenere as vg
+import encryptor.src.vernam as vn
+import encryptor.src.analyser as an
 import json
 
 
