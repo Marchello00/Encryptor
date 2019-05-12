@@ -190,3 +190,18 @@ $ ./encryptor.py hack -i out.txt -m models/rus -a rus
 ```
 $ python setup.py install
 ```
+
+## Тесты
+
+Все тесты находятся в папке test, запускаются с помощью pytest:
+```
+$ pytest --duration=50
+```
+Юнит тесты: `caesar_test.py`, `vigenere_test.py`
+
+Нагрузочные и стресс тесты: `stress_test.py`
+
+Было так же проведено юзабилити тестирование, отмечено, что
+благодаря argparse с help при неправильном использовании особых проблем 
+не возникает.
+Работоспособность интерфейся напрямую проверяется в `os_use_test.py`
