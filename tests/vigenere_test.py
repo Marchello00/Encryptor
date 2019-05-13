@@ -5,7 +5,7 @@ import json
 
 
 def testdata(test_type=None):
-    with open('test/vigenere_data.json') as f:
+    with open('tests/vigenere_data.json') as f:
         all_tests = json.load(f)
     result = []
     for key, value in all_tests.items():
