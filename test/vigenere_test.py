@@ -1,5 +1,5 @@
 import pytest
-from src import vigenere
+import src.vigenere as vigenere
 from encryptor import get_alphabet
 import json
 

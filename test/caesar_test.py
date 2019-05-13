@@ -1,5 +1,5 @@
 import pytest
-from src import caesar
+import src.caesar as caesar
 from src.analyser import Analyser
 from encryptor import get_alphabet
 import json

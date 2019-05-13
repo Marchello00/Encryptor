@@ -1,6 +1,6 @@
 import pytest
 import random
-from src import caesar
+import src.caesar as caesar
 from src.analyser import Analyser
 import json
 
