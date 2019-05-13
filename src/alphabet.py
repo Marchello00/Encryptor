@@ -2,9 +2,13 @@ from src.takes import takes
 import string
 import functools
 
-# Without 'ёЁ'
-russian_alphabet = ''.join(map(chr, range(ord('а'), ord('я') + 1))) + \
-                   ''.join(map(chr, range(ord('А'), ord('Я') + 1)))
+
+def _letter_range(start, end):
+    return ''.join(map(chr, range(ord(start), ord(end) + 1)))
+
+
+russian_alphabet = _letter_range('а', 'е') + 'ё' + _letter_range('ж', 'я')
+russian_alphabet += russian_alphabet.upper()
 
 
 class Alphabet:

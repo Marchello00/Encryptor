@@ -5,7 +5,7 @@ def encrypt(text, key, alphabet=Alphabet()):
     if not key:
         raise ValueError("Key must be non-empty")
     ptr = 0
-    result = ''
+    result = []
     for c in text:
         if c in alphabet.get_alphabet():
             try:
@@ -16,8 +16,8 @@ def encrypt(text, key, alphabet=Alphabet()):
             ptr += 1
             if ptr == len(key):
                 ptr = 0
-        result += c
-    return result
+        result.append(c)
+    return ''.join(result)
 
 
 def decrypt(text, key, alphabet=Alphabet()):
