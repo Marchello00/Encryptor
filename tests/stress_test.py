@@ -46,8 +46,9 @@ def test_gen_encrypt_decrypt(text_path, word_count, key):
                           (RUS_TEXT, RUS_MODEL)))
 @pytest.mark.parametrize("word_count", (10, 100, 10000))
 @pytest.mark.parametrize("key", (1, 5, 10, 14, 23))
-def test_gen_encrypt_hack(text_path, model_path, word_count, key):
-    text = get_random_text(ENG_TEXT1, 0, word_count)
+@pytest.mark.parametrize("seed", (23124, 31789, 49734, 981724))
+def test_gen_encrypt_hack(text_path, model_path, word_count, key, seed):
+    text = get_random_text(ENG_TEXT1, seed, word_count)
     enc = caesar.encrypt(text, key)
     a = Analyser()
     with open(model_path) as m:
