@@ -35,7 +35,7 @@ def parse_args():
                              default='eng',
                              help='Alphabet (builtin)'
                                   ' which will be used for encoding')
-    encode_alph.add_argument('--file_alphabet', '-f',
+    encode_alph.add_argument('--file-alphabet', '-f',
                              help='Alphabet (yours)'
                                   ' which will be used for encoding'
                              )
@@ -58,7 +58,7 @@ def parse_args():
                              default='eng',
                              help='Alphabet (builtin)'
                                   ' which will be used for decoding')
-    decode_alph.add_argument('--file_alphabet', '-f',
+    decode_alph.add_argument('--file-alphabet', '-f',
                              help='Alphabet (your)'
                                   ' which will be used for decoding'
                              )
@@ -67,9 +67,9 @@ def parse_args():
     train_parser = subparsers.add_parser('train',
                                          help='Create train model '
                                               'on your text')
-    train_parser.add_argument('--text_file', '-i',
+    train_parser.add_argument('--text-file', '-i',
                               help='Text for training')
-    train_parser.add_argument('--model_file', '-m',
+    train_parser.add_argument('--model-file', '-m',
                               help='Trained model '
                                    'will be written to this file')
     train_parser.add_argument('--ngrams', '-n', type=int,
@@ -79,7 +79,7 @@ def parse_args():
                                    'also analysed')
     train_parser.add_argument('--top', '-t', type=int,
                               help='How many most common words remember')
-    train_parser.add_argument('--count_avg', '-c', action='store_true',
+    train_parser.add_argument('--count-avg', '-c', action='store_true',
                               help='Count average statistics on your text'
                                    '(may work slower)')
     train_parser.set_defaults(act='train')
@@ -91,7 +91,7 @@ def parse_args():
     hack_parser.add_argument('--output-file', '-o',
                              help='Decoded message '
                                   'will be written to this file')
-    hack_parser.add_argument('--model_file', '-m',
+    hack_parser.add_argument('--model-file', '-m',
                              default='models/eng',
                              help='Trained model '
                                   'will be loaded from this file')
@@ -101,7 +101,7 @@ def parse_args():
                            help='Alphabet (builtin)'
                                 ' which will be used for decoding'
                            )
-    hack_alph.add_argument('--file_alphabet', '-f',
+    hack_alph.add_argument('--file-alphabet', '-f',
                            help='Alphabet (your)'
                                 ' which will be used for encoding'
                            )

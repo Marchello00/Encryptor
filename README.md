@@ -21,27 +21,27 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
 $ ./encryptor.py train -h
-usage: encryptor.py train [-h] [--text_file TEXT_FILE]
-                          [--model_file MODEL_FILE] [--ngrams NGRAMS] [--punc]
-                          [--top TOP] [--count_avg]
+usage: encryptor.py train [-h] [--text-file TEXT_FILE]
+                          [--model-file MODEL_FILE] [--ngrams NGRAMS] [--punc]
+                          [--top TOP] [--count-avg]
 
 optional arguments:
   -h, --help            show this help message and exit
-  --text_file TEXT_FILE, -i TEXT_FILE
+  --text-file TEXT_FILE, -i TEXT_FILE
                         Text for training
-  --model_file MODEL_FILE, -m MODEL_FILE
+  --model-file MODEL_FILE, -m MODEL_FILE
                         Trained model will be written to this file
   --ngrams NGRAMS, -n NGRAMS
                         N for n-grams analyse
   --punc, -p            If exist punctuation will be also analysed
   --top TOP, -t TOP     How many most common words remember
-  --count_avg, -c       Count average statistics on your text(may work slower)
+  --count-avg, -c       Count average statistics on your text(may work slower)
 ```
 
 ## alphabet
 
 Для многих операций может пригодиться использование параметра `--alphabet` или
-`--file_alphabet`, с его помощью можно задать алфавит на котором будут 
+`--file-alphabet`, с его помощью можно задать алфавит на котором будут 
 осуществляться сдвиги во время шифровки (шифроваться будут только символы из алфавита).
 
 Параметром `--alphabet` можно задавать стандартные алфавиты:
@@ -55,7 +55,7 @@ optional arguments:
 
 *Замечание: по умолчанию используется eng, а в rus и all нет буквы ё*
 
-Можно указать свой алфавит передав путь к файлу в параметре `--file_alphabet`, 
+Можно указать свой алфавит передав путь к файлу в параметре `--file-alphabet`, 
 который будет интерпретирован как алфавит 
 (никаких преобразований производиться не будет, все символы из файла будут в алфавите
 не исключая повторений и пробелов, в том числе переноса строки).
@@ -90,12 +90,12 @@ optional arguments:
 
 Помимо типичных аргументов `--input-file`, `--output-file` и `--alphabet`,
 назначение которых не отличается от предыдущих случаев, принимает аргумент 
-`--model_file`, далее чуть подробнее о нём.
+`--model-file`, далее чуть подробнее о нём.
 
 Взлом основан на анализе известных настоящих текстов (подсчете частотности букв/
 слов и т.д.), поэтому для качественного взлома необходима модель, которая строится 
 по тексту (см. *train*). Путь к файлу с моделью необходимо передать через параметр
-`--model_file`. В папке models есть 3 заранее подготовленные модели:
+`--model-file`. В папке models есть 3 заранее подготовленные модели:
 * eng - основана на анализе соннетов Шекспира (язык английский)
 * eng2 - основана на анализе писейм Джейн Остин (язык английский)
 * rus - основана на первом томе романа "Война и мир" Л.Н.Толстого (язык русский)
@@ -106,8 +106,8 @@ optional arguments:
 
 Режим необходим для построения модели для взлома на вашем тексте.
 
-Путь к тексту передаётся через параметр `--text_file`, а путь к файлу, 
-в который будет сохранена модель, через параметр `--model_file`.
+Путь к тексту передаётся через параметр `--text-file`, а путь к файлу, 
+в который будет сохранена модель, через параметр `--model-file`.
 
 Параметры для настройки анализатора:
 * `--ngrams` - необходимо передать число. Анализатор подсчитывает частотность 
@@ -117,7 +117,7 @@ optional arguments:
 * `--punc` необходимо указать, если в n-граммы не нужно игнорировать пунктуацию.
 * `--top` - необходимо передать число. Ограничение для запоминания моделью только 
 `n` самых частотоных слов.
-* `--count_avg` необходимо указать, если вы хотите подсчитать статистику на вашем
+* `--count-avg` необходимо указать, если вы хотите подсчитать статистику на вашем
 тексте (крайне рекомендумется, улучшает точность взлома, но может замедлить 
 обработку текста).
 
