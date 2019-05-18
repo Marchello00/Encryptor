@@ -19,7 +19,7 @@ def encode_action(args):
             print('Key for caesar cipher must be integer value')
             return
     with smart_open(args.input_file, 'r') as input_file:
-        text = input_file.read()
+        text = input_file.read().strip()
     if args.file_alphabet:
         with open(args.file_alphabet, 'r') as alphabet_file:
             alph = alphabet.Alphabet(alphabet_file.read())
@@ -45,7 +45,7 @@ def decode_action(args):
             print('Key for caesar cipher must be integer value')
             return
     with smart_open(args.input_file, 'r') as input_file:
-        text = input_file.read()
+        text = input_file.read().strip()
     if args.file_alphabet:
         with open(args.file_alphabet, 'r') as alphabet_file:
             alph = alphabet.Alphabet(alphabet_file.read())
