@@ -1,6 +1,6 @@
+import math
 from src.alphabet import Alphabet
 from src import vigenere
-import math
 
 
 def __int_log(n):
@@ -9,18 +9,19 @@ def __int_log(n):
 
 def text_to_binary(text, alphabet=Alphabet()):
     k = __int_log(len(alphabet))
-    result = ''
-    for c in text:
-        result += '{bits:0>{num}}'.format(bits=bin(alphabet.ord(c))[2:], num=k)
-    return result
+    result = []
+    for letter in text:
+        result.append(
+            '{bits:0>{num}}'.format(bits=bin(alphabet.ord(letter))[2:], num=k))
+    return ''.join(result)
 
 
 def binary_to_text(binary, alphabet=Alphabet()):
     k = __int_log(len(alphabet))
-    result = ''
+    result = []
     for i in range(0, len(binary), k):
-        result += alphabet.chr(int(binary[i:i + k], 2))
-    return result
+        result.append(alphabet.chr(int(binary[i:i + k], 2)))
+    return ''.join(result)
 
 
 def encrypt(text, key, alphabet=Alphabet()):
@@ -38,7 +39,7 @@ def encrypt(text, key, alphabet=Alphabet()):
     if len(key) != len(text):
         raise ValueError('Key must be as long as message, '
                          'message len is {mes} and key len is {key}'.format(
-                            mes=len(text) // k, key=len(key) // k))
+                             mes=len(text) // k, key=len(key) // k))
     return vigenere.encrypt(text, key, Alphabet('01'))
 
 

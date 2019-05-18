@@ -15,7 +15,8 @@ def freq(dct, summ=None):
 
 class Analyser:
     def count_letters(self):
-        if not self.text: return None
+        if not self.text:
+            return None
         self.letters = freq(Counter(self.text), len(self.text))
         return self.letters
 
@@ -26,19 +27,20 @@ class Analyser:
         self.words = freq(dict(ctr.most_common(limit)))
         return self.words
 
-    def count_n_grams(self, n=None, with_punc=False):
-        if not n:
-            n = 2
-        self.n = n
+    def count_n_grams(self, n_for_ngrams=None, with_punc=False):
+        if not n_for_ngrams:
+            n_for_ngrams = 2
+        self.n_for_ngrams = n_for_ngrams
         text = self.text.lower()
         dct = defaultdict(list)
         if not with_punc:
             for word in re.findall(r'\w+', text):
-                for i in range(0, len(word) - n):
-                    dct[word[i:i + n]].append(word[i + n])
+                for i in range(0, len(word) - n_for_ngrams):
+                    dct[word[i:i + n_for_ngrams]].append(
+                        word[i + n_for_ngrams])
         else:
-            for i in range(0, len(text) - n):
-                dct[text[i:i + n]].append(text[i + n])
+            for i in range(0, len(text) - n_for_ngrams):
+                dct[text[i:i + n_for_ngrams]].append(text[i + n_for_ngrams])
         self.n_grams = {key: freq(Counter(val)) for key, val in dct.items()}
         return self.n_grams
 
@@ -52,7 +54,8 @@ class Analyser:
             self.avg_letters += get_letters_analyse(self.text[i:i + part],
                                                     self.letters)
             self.avg_n_grams += get_n_grams_analyse(self.text[i:i + part],
-                                                    self.n, self.n_grams)
+                                                    self.n_for_ngrams,
+                                                    self.n_grams)
         self.avg_words /= len(w) / part
         self.avg_letters /= len(w) / part
         self.avg_n_grams /= len(w) / part
@@ -74,7 +77,7 @@ class Analyser:
     def get_analyse(self, text):
         return get_words_analyse(text, self.words) / self.avg_words + \
                get_letters_analyse(text, self.letters) / self.avg_letters + \
-               get_n_grams_analyse(text, self.n,
+               get_n_grams_analyse(text, self.n_for_ngrams,
                                    self.n_grams) / self.avg_n_grams
 
     def __init__(self, text='', n_grams=None, dont_ignore_punc=False,
@@ -82,7 +85,7 @@ class Analyser:
         self.text = text
         self.letters = dict()
         self.words = dict()
-        self.n = 0
+        self.n_for_ngrams = 0
         self.n_grams = dict()
         self.avg_words, self.avg_letters, self.avg_n_grams = 1, 1, 1
         self.analyse(n_grams, dont_ignore_punc, top_n_words, count_avg)
@@ -107,16 +110,16 @@ def get_words_analyse(text, words_freq):
 
 def get_letters_analyse(text, letters_freq):
     summ = 0
-    for c in list(text):
-        if c in letters_freq:
-            summ += letters_freq[c]
+    for letter in list(text):
+        if letter in letters_freq:
+            summ += letters_freq[letter]
     return summ
 
 
-def get_n_grams_analyse(text, n, n_grams):
+def get_n_grams_analyse(text, n_for_ngrams, n_grams):
     summ = 0
-    for i in range(0, len(text) - n):
-        if text[i:i + n] in n_grams and \
-                text[i + n] in n_grams[text[i:i + n]]:
-            summ += n_grams[text[i:i + n]][text[i + n]]
+    for i in range(0, len(text) - n_for_ngrams):
+        if text[i:i + n_for_ngrams] in n_grams and \
+                text[i + n_for_ngrams] in n_grams[text[i:i + n_for_ngrams]]:
+            summ += n_grams[text[i:i + n_for_ngrams]][text[i + n_for_ngrams]]
     return summ

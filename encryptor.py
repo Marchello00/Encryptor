@@ -2,13 +2,13 @@
 
 import sys
 import argparse
+import json
 from contextlib import contextmanager
 import src.alphabet as ab
 import src.caesar as c
 import src.vigenere as vg
 import src.vernam as vn
 import src.analyser as an
-import json
 
 
 def encode_action(args):
@@ -18,23 +18,23 @@ def encode_action(args):
         except Exception:
             print('Key for caesar cipher must be integer value')
             return
-    with smart_open(args.input_file, 'r') as i:
-        text = i.read()
+    with smart_open(args.input_file, 'r') as input_file:
+        text = input_file.read()
     if args.file_alphabet:
-        with open(args.file_alphabet, 'r') as a:
-            alphabet = ab.Alphabet(a.read())
+        with open(args.file_alphabet, 'r') as alphabet_file:
+            alphabet = ab.Alphabet(alphabet_file.read())
     else:
         alphabet = get_alphabet(args.alphabet)
     if args.cipher == 'caesar':
-        with smart_open(args.output_file, 'w') as o:
-            o.write(c.encrypt(text, args.key, alphabet))
+        with smart_open(args.output_file, 'w') as output_file:
+            output_file.write(c.encrypt(text, args.key, alphabet))
     if args.cipher == 'vigenere':
-        with smart_open(args.output_file, 'w') as o:
-            o.write(vg.encrypt(text, args.key, alphabet))
+        with smart_open(args.output_file, 'w') as output_file:
+            output_file.write(vg.encrypt(text, args.key, alphabet))
     if args.cipher == 'vernam':
-        with smart_open(args.output_file, 'w') as o:
-            o.write(vn.encrypt(text, args.key, alphabet))
-            o.write('\n')
+        with smart_open(args.output_file, 'w') as output_file:
+            output_file.write(vn.encrypt(text, args.key, alphabet))
+            output_file.write('\n')
 
 
 def decode_action(args):
@@ -44,53 +44,53 @@ def decode_action(args):
         except Exception:
             print('Key for caesar cipher must be integer value')
             return
-    with smart_open(args.input_file, 'r') as i:
-        text = i.read()
+    with smart_open(args.input_file, 'r') as input_file:
+        text = input_file.read()
     if args.file_alphabet:
-        with open(args.file_alphabet, 'r') as a:
-            alphabet = ab.Alphabet(a.read())
+        with open(args.file_alphabet, 'r') as alphabet_file:
+            alphabet = ab.Alphabet(alphabet_file.read())
     else:
         alphabet = get_alphabet(args.alphabet)
     if args.cipher == 'caesar':
-        with smart_open(args.output_file, 'w') as o:
-            o.write(c.decrypt(text, args.key, alphabet))
+        with smart_open(args.output_file, 'w') as output_file:
+            output_file.write(c.decrypt(text, args.key, alphabet))
     if args.cipher == 'vigenere':
-        with smart_open(args.output_file, 'w') as o:
-            o.write(vg.decrypt(text, args.key, alphabet))
+        with smart_open(args.output_file, 'w') as output_file:
+            output_file.write(vg.decrypt(text, args.key, alphabet))
     if args.cipher == 'vernam':
-        with smart_open(args.output_file, 'w') as o:
-            o.write(vn.decrypt(text, args.key, alphabet))
-            o.write('\n')
+        with smart_open(args.output_file, 'w') as output_file:
+            output_file.write(vn.decrypt(text, args.key, alphabet))
+            output_file.write('\n')
 
 
 def train_action(args):
-    with smart_open(args.text_file, 'r') as i:
-        text = i.read()
+    with smart_open(args.text_file, 'r') as text_file:
+        text = text_file.read()
     if not text:
         raise ValueError('Text must be non-empty')
     analyse = an.Analyser(
         text, args.ngrams, args.punc, args.top, args.count_avg
     )
-    with smart_open(args.model_file, 'w') as o:
-        json.dump(analyse.dump(), o)
+    with smart_open(args.model_file, 'w') as model_file:
+        json.dump(analyse.dump(), model_file)
 
 
 def hack_action(args):
-    with smart_open(args.input_file, 'r') as i:
-        text = i.read()
+    with smart_open(args.input_file, 'r') as input_file:
+        text = input_file.read()
     analyse = an.Analyser()
-    with smart_open(args.model_file, 'r') as m:
+    with smart_open(args.model_file, 'r') as model_file:
         try:
-            analyse.load(json.load(m))
+            analyse.load(json.load(model_file))
         except Exception:
             raise ValueError('Model file is corrupted!')
     if args.file_alphabet:
-        with open(args.file_alphabet, 'r') as a:
-            alphabet = ab.Alphabet(a.read())
+        with open(args.file_alphabet, 'r') as alphabet_file:
+            alphabet = ab.Alphabet(alphabet_file.read())
     else:
         alphabet = get_alphabet(args.alphabet)
-    with smart_open(args.output_file, 'w') as o:
-        o.write(c.hack(text, analyse, alphabet))
+    with smart_open(args.output_file, 'w') as output_file:
+        output_file.write(c.hack(text, analyse, alphabet))
 
 
 def parse_args():
@@ -239,5 +239,5 @@ def main():
 if __name__ == '__main__':
     try:
         main()
-    except Exception as e:
+    except Exception:
         print(sys.exc_info()[1])

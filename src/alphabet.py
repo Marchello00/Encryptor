@@ -1,13 +1,14 @@
-from src.takes import takes
 import string
 import functools
+from src.takes import takes
 
 
 def _letter_range(start, end):
     return ''.join(map(chr, range(ord(start), ord(end) + 1)))
 
 
-russian_alphabet = _letter_range('а', 'е') + 'ё' + _letter_range('ж', 'я')
+russian_alphabet = ''.join(
+    [_letter_range('а', 'е'), 'ё', _letter_range('ж', 'я')])
 russian_alphabet += russian_alphabet.upper()
 
 
@@ -74,20 +75,20 @@ class Alphabet:
             raise ValueError("Wrong code(it's not in your alphabet)")
         return self.__alphabet[code]
 
-    def shift(self, letter, k):
+    def shift(self, letter, steps):
         code = self.ord(letter)
-        n = len(self.__alphabet)
-        k = (k % n + n) % n
-        return self.__alphabet[(code + k) % n]
+        alph_len = len(self.__alphabet)
+        steps = (steps % alph_len + alph_len) % alph_len
+        return self.__alphabet[(code + steps) % alph_len]
 
     @takes(object, str)
     def anti_word(self, word):
-        new_word = ''
-        for c in word:
-            if c not in self.__alphabet:
+        new_word = []
+        for letter in word:
+            if letter not in self.__alphabet:
                 raise ValueError("Word can contain only symbols from alphabet")
-            new_word += self.__alphabet[-self.ord(c)]
-        return new_word
+            new_word.append(self.__alphabet[-self.ord(letter)])
+        return ''.join(new_word)
 
     def __init__(self, alphabet=string.ascii_letters):
         self.__alphabet = None

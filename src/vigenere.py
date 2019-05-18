@@ -6,17 +6,17 @@ def encrypt(text, key, alphabet=Alphabet()):
         raise ValueError("Key must be non-empty")
     ptr = 0
     result = []
-    for c in text:
-        if c in alphabet.get_alphabet():
+    for letter in text:
+        if letter in alphabet.get_alphabet():
             try:
-                c = alphabet.shift(c, alphabet.ord(key[ptr]))
-            except ValueError as e:
+                letter = alphabet.shift(letter, alphabet.ord(key[ptr]))
+            except ValueError:
                 raise ValueError(
                     'Key can contain only symbols from your alphabet')
             ptr += 1
             if ptr == len(key):
                 ptr = 0
-        result.append(c)
+        result.append(letter)
     return ''.join(result)
 
 

@@ -13,4 +13,3 @@ def takes(*correct_args):
         return wrapper
 
     return wraps
-

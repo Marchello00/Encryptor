@@ -2,12 +2,12 @@ from src.alphabet import Alphabet
 
 
 def encrypt(text, key, alphabet=Alphabet()):
-    result = ''
-    for c in text:
-        if c in alphabet.get_alphabet():
-            c = alphabet.shift(c, key)
-        result += c
-    return result
+    result = []
+    for letter in text:
+        if letter in alphabet.get_alphabet():
+            letter = alphabet.shift(letter, key)
+        result.append(letter)
+    return ''.join(result)
 
 
 def decrypt(text, key, alphabet=Alphabet()):
