@@ -8,28 +8,29 @@ def __int_log(num):
 
 
 def text_to_binary(text, alphabet=Alphabet()):
-    k = __int_log(len(alphabet))
+    num_bits = __int_log(len(alphabet))
     result = []
     for letter in text:
         result.append(
-            '{bits:0>{num}}'.format(bits=bin(alphabet.ord(letter))[2:], num=k))
+            '{bits:0>{num}}'.format(bits=bin(alphabet.ord(letter))[2:],
+                                    num=num_bits))
     return ''.join(result)
 
 
 def binary_to_text(binary, alphabet=Alphabet()):
-    k = __int_log(len(alphabet))
+    num_bits = __int_log(len(alphabet))
     result = []
-    for i in range(0, len(binary), k):
-        result.append(alphabet.chr(int(binary[i:i + k], 2)))
+    for i in range(0, len(binary), num_bits):
+        result.append(alphabet.chr(int(binary[i:i + num_bits], 2)))
     return ''.join(result)
 
 
 def encrypt(text, key, alphabet=Alphabet()):
-    k = __int_log(len(alphabet))
+    num_bits = __int_log(len(alphabet))
     try:
-        if len(key) == k * len(text):
+        if len(key) == num_bits * len(text):
             text = text_to_binary(text, alphabet)
-        elif len(text) == k * len(key):
+        elif len(text) == num_bits * len(key):
             key = text_to_binary(key, alphabet)
         else:
             key = text_to_binary(key, alphabet)
@@ -39,7 +40,8 @@ def encrypt(text, key, alphabet=Alphabet()):
     if len(key) != len(text):
         raise ValueError('Key must be as long as message, '
                          'message len is {mes} and key len is {key}'.format(
-                             mes=len(text) // k, key=len(key) // k))
+                            mes=len(text) // num_bits,
+                            key=len(key) // num_bits))
     return vigenere.encrypt(text, key, Alphabet('01'))
 
 

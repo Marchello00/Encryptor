@@ -16,11 +16,11 @@ def decrypt(text, key, alphabet=Alphabet()):
 
 def hack(text, trained, alphabet=Alphabet()):
     variant = []
-    for k in range(len(alphabet)):
-        here = decrypt(text, k, alphabet)
+    for key in range(len(alphabet)):
+        here = decrypt(text, key, alphabet)
         variant.append((
             trained.get_analyse(here),
-            k
+            key
         ))
-    good_k = max(variant)[1]
-    return decrypt(text, good_k, alphabet)
+    good_key = max(variant)[1]
+    return decrypt(text, good_key, alphabet)

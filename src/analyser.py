@@ -21,7 +21,7 @@ class Analyser:
         self.letters = freq(Counter(self.text), len(self.text))
         return self.letters
 
-    def count_words(self, limit=None):
+    def count_words(self, limit=enums.TOP_N_WORDS_DEFAULT):
         if not limit:
             limit = len(self.text)
         ctr = Counter(re.findall(r'\w+', self.text.lower()))
