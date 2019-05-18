@@ -4,11 +4,11 @@ import sys
 import argparse
 import json
 from contextlib import contextmanager
-import src.alphabet as ab
-import src.caesar as c
-import src.vigenere as vg
-import src.vernam as vn
-import src.analyser as an
+import src.alphabet as alphabet
+import src.caesar as caesar
+import src.vigenere as vigenere
+import src.vernam as vernam
+import src.analyser as analyser
 
 
 def encode_action(args):
@@ -22,18 +22,18 @@ def encode_action(args):
         text = input_file.read()
     if args.file_alphabet:
         with open(args.file_alphabet, 'r') as alphabet_file:
-            alphabet = ab.Alphabet(alphabet_file.read())
+            alph = alphabet.Alphabet(alphabet_file.read())
     else:
-        alphabet = get_alphabet(args.alphabet)
+        alph = get_alphabet(args.alphabet)
     if args.cipher == 'caesar':
         with smart_open(args.output_file, 'w') as output_file:
-            output_file.write(c.encrypt(text, args.key, alphabet))
+            output_file.write(caesar.encrypt(text, args.key, alph))
     if args.cipher == 'vigenere':
         with smart_open(args.output_file, 'w') as output_file:
-            output_file.write(vg.encrypt(text, args.key, alphabet))
+            output_file.write(vigenere.encrypt(text, args.key, alph))
     if args.cipher == 'vernam':
         with smart_open(args.output_file, 'w') as output_file:
-            output_file.write(vn.encrypt(text, args.key, alphabet))
+            output_file.write(vernam.encrypt(text, args.key, alph))
             output_file.write('\n')
 
 
@@ -48,18 +48,18 @@ def decode_action(args):
         text = input_file.read()
     if args.file_alphabet:
         with open(args.file_alphabet, 'r') as alphabet_file:
-            alphabet = ab.Alphabet(alphabet_file.read())
+            alph = alphabet.Alphabet(alphabet_file.read())
     else:
-        alphabet = get_alphabet(args.alphabet)
+        alph = get_alphabet(args.alphabet)
     if args.cipher == 'caesar':
         with smart_open(args.output_file, 'w') as output_file:
-            output_file.write(c.decrypt(text, args.key, alphabet))
+            output_file.write(caesar.decrypt(text, args.key, alph))
     if args.cipher == 'vigenere':
         with smart_open(args.output_file, 'w') as output_file:
-            output_file.write(vg.decrypt(text, args.key, alphabet))
+            output_file.write(vigenere.decrypt(text, args.key, alph))
     if args.cipher == 'vernam':
         with smart_open(args.output_file, 'w') as output_file:
-            output_file.write(vn.decrypt(text, args.key, alphabet))
+            output_file.write(vernam.decrypt(text, args.key, alph))
             output_file.write('\n')
 
 
@@ -68,7 +68,7 @@ def train_action(args):
         text = text_file.read()
     if not text:
         raise ValueError('Text must be non-empty')
-    analyse = an.Analyser(
+    analyse = analyser.Analyser(
         text, args.ngrams, args.punc, args.top, args.count_avg
     )
     with smart_open(args.model_file, 'w') as model_file:
@@ -78,7 +78,7 @@ def train_action(args):
 def hack_action(args):
     with smart_open(args.input_file, 'r') as input_file:
         text = input_file.read()
-    analyse = an.Analyser()
+    analyse = analyser.Analyser()
     with smart_open(args.model_file, 'r') as model_file:
         try:
             analyse.load(json.load(model_file))
@@ -86,11 +86,11 @@ def hack_action(args):
             raise ValueError('Model file is corrupted!')
     if args.file_alphabet:
         with open(args.file_alphabet, 'r') as alphabet_file:
-            alphabet = ab.Alphabet(alphabet_file.read())
+            alph = alphabet.Alphabet(alphabet_file.read())
     else:
-        alphabet = get_alphabet(args.alphabet)
+        alph = get_alphabet(args.alphabet)
     with smart_open(args.output_file, 'w') as output_file:
-        output_file.write(c.hack(text, analyse, alphabet))
+        output_file.write(caesar.hack(text, analyse, alph))
 
 
 def parse_args():
@@ -213,7 +213,7 @@ def smart_open(file, mode):
 
 
 def get_alphabet(choise):
-    alph = ab.Alphabet()
+    alph = alphabet.Alphabet()
     solver = {'eng': alph.set_letters_alphabet,
               'engpunc': alph.set_punctuation_alphabet,
               'engup': alph.set_big_letters_alphabet,

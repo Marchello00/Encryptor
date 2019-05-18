@@ -3,8 +3,8 @@ from src.alphabet import Alphabet
 from src import vigenere
 
 
-def __int_log(n):
-    return math.ceil(math.log(n, 2))
+def __int_log(num):
+    return math.ceil(math.log(num, 2))
 
 
 def text_to_binary(text, alphabet=Alphabet()):

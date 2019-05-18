@@ -1,6 +1,7 @@
 from collections import Counter, defaultdict
 import re
 from math import sqrt
+import src.enums as enums
 
 
 def freq(dct, summ=None):
@@ -27,9 +28,8 @@ class Analyser:
         self.words = freq(dict(ctr.most_common(limit)))
         return self.words
 
-    def count_n_grams(self, n_for_ngrams=None, with_punc=False):
-        if not n_for_ngrams:
-            n_for_ngrams = 2
+    def count_n_grams(self, n_for_ngrams=enums.N_FOR_NGRAMS_DEFAULT,
+                      with_punc=enums.WITH_PUNC_DEFAULT):
         self.n_for_ngrams = n_for_ngrams
         text = self.text.lower()
         dct = defaultdict(list)
@@ -45,10 +45,14 @@ class Analyser:
         return self.n_grams
 
     def count_avg(self):
-        w = re.findall(r'\w+', self.text)
-        part = max(min(1000, int(sqrt(len(w)))), 1)
+        words = re.findall(r'\w+', self.text)
+        if not words:
+            return
+        part = min(enums.MAX_LEN_OF_PARTS_TO_ANALYSE_IN_COUNT_AVG,
+                   int(sqrt(len(words))))
         self.avg_letters, self.avg_words, self.avg_n_grams = 0, 0, 0
-        for i in range(0, len(w), part):
+        step = part / enums.ANALYSE_FRAGMENTS_DENSITY
+        for i in range(0, len(words), step):
             self.avg_words += get_words_analyse(self.text[i:i + part],
                                                 self.words)
             self.avg_letters += get_letters_analyse(self.text[i:i + part],
@@ -56,19 +60,21 @@ class Analyser:
             self.avg_n_grams += get_n_grams_analyse(self.text[i:i + part],
                                                     self.n_for_ngrams,
                                                     self.n_grams)
-        self.avg_words /= len(w) / part
-        self.avg_letters /= len(w) / part
-        self.avg_n_grams /= len(w) / part
-        if not self.avg_letters:
+        self.avg_words /= len(words) / step
+        self.avg_letters /= len(words) / step
+        self.avg_n_grams /= len(words) / step
+        if self.avg_letters == 0:
             self.avg_letters = 1
-        if not self.avg_words:
+        if self.avg_words == 0:
             self.avg_words = 1
-        if not self.avg_n_grams:
+        if self.avg_n_grams == 0:
             self.avg_n_grams = 1
 
-    def analyse(self, n_grams=None, dont_ignore_punc=False, top_n_words=None,
-                count_avg=False):
-        self.count_n_grams(n_grams, dont_ignore_punc)
+    def analyse(self, n_for_ngrams=enums.N_FOR_NGRAMS_DEFAULT,
+                dont_ignore_punc=enums.WITH_PUNC_DEFAULT,
+                top_n_words=enums.TOP_N_WORDS_DEFAULT,
+                count_avg=enums.COUNT_AVG_DEFAULT):
+        self.count_n_grams(n_for_ngrams, dont_ignore_punc)
         self.count_words(top_n_words)
         self.count_letters()
         if count_avg:
@@ -80,15 +86,17 @@ class Analyser:
                get_n_grams_analyse(text, self.n_for_ngrams,
                                    self.n_grams) / self.avg_n_grams
 
-    def __init__(self, text='', n_grams=None, dont_ignore_punc=False,
-                 top_n_words=None, count_avg=False):
+    def __init__(self, text='', n_for_ngrams=enums.N_FOR_NGRAMS_DEFAULT,
+                 dont_ignore_punc=enums.WITH_PUNC_DEFAULT,
+                 top_n_words=enums.TOP_N_WORDS_DEFAULT,
+                 count_avg=enums.COUNT_AVG_DEFAULT):
         self.text = text
         self.letters = dict()
         self.words = dict()
-        self.n_for_ngrams = 0
+        self.n_for_ngrams = n_for_ngrams
         self.n_grams = dict()
         self.avg_words, self.avg_letters, self.avg_n_grams = 1, 1, 1
-        self.analyse(n_grams, dont_ignore_punc, top_n_words, count_avg)
+        self.analyse(n_for_ngrams, dont_ignore_punc, top_n_words, count_avg)
 
     def dump(self):
         return {key: self.__getattribute__(key) for key in self.__dict__}

@@ -71,7 +71,7 @@ class Alphabet:
         return code
 
     def chr(self, code):
-        if code < 0 or len(self.__alphabet) < code:
+        if code < 0 or len(self.__alphabet) <= code:
             raise ValueError("Wrong code(it's not in your alphabet)")
         return self.__alphabet[code]
 
