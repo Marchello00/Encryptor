@@ -11,7 +11,9 @@
         "encrypted": "oro"
       }
     ],
-    "type": ["register"],
+    "type": [
+      "register"
+    ],
     "alphabet": "eng"
   },
   "1": {
@@ -22,7 +24,9 @@
         "encrypted": "nQn"
       }
     ],
-    "type": ["register"],
+    "type": [
+      "register"
+    ],
     "alphabet": "eng"
   },
   "2": {
@@ -33,7 +37,9 @@
         "encrypted": "Nqn"
       }
     ],
-    "type": ["register"],
+    "type": [
+      "register"
+    ],
     "alphabet": "eng"
   },
   "3": {
@@ -44,7 +50,9 @@
         "encrypted": "NQN"
       }
     ],
-    "type": ["register"],
+    "type": [
+      "register"
+    ],
     "alphabet": "eng"
   },
   "4": {
@@ -55,7 +63,9 @@
         "encrypted": "Rtkxgv, mgm"
       }
     ],
-    "type": ["punctuation"],
+    "type": [
+      "punctuation"
+    ],
     "alphabet": "eng"
   },
   "5": {
@@ -66,7 +76,9 @@
         "encrypted": "KgVQ.Rtq,UVq!vguv???;fc"
       }
     ],
-    "type": ["punctuation"],
+    "type": [
+      "punctuation"
+    ],
     "alphabet": "eng"
   },
   "6": {
@@ -85,7 +97,9 @@
         "encrypted": "hvs OFAM wG ozFsorM vsFs!"
       }
     ],
-    "type": ["hack"],
+    "type": [
+      "hack"
+    ],
     "model": "models/eng",
     "alphabet": "eng"
   },
@@ -105,8 +119,54 @@
         "encrypted": "Q'u ACxmzpmzw ivl Q svwE itt ijwCB UIZdMT"
       }
     ],
-    "type": ["hack"],
+    "type": [
+      "hack"
+    ],
     "model": "models/eng",
     "alphabet": "eng"
+  },
+  "8": {
+    "plain": "I'm superhero and I know all about MARVEL",
+    "variants": [
+      {
+        "key": 12,
+        "encrypted": "U'y EGBqDtqDA mzp U wzAI mxx mnAGF YMdhQX"
+      },
+      {
+        "key": 17,
+        "encrypted": "Z'D JLGvIyvIF rEu Z BEFN rCC rsFLK dRimVc"
+      },
+      {
+        "key": 8,
+        "encrypted": "Q'u ACxmzpmzw ivl Q svwE itt ijwCB UIZdMT"
+      }
+    ],
+    "type": [
+      "hack"
+    ],
+    "model": "models/eng2",
+    "alphabet": "eng"
+  },
+  "9": {
+    "plain": "Привет, я очень секретный русский текст!",
+    "variants": [
+      {
+        "key": 10,
+        "encrypted": "Щътлоь, И шБочЁ ыофъоьчЕу ъэыыфту ьофыь!"
+      },
+      {
+        "key": 18,
+        "encrypted": "бВъуцД, Р АИцяН ГцьВцДяМы ВЕГГьъы ДцьГД!"
+      },
+      {
+        "key": 5,
+        "encrypted": "Фхнжйч, Д уьйтБ цйпхйчтАо хшццпно чйпцч!"
+      }
+    ],
+    "type": [
+      "hack"
+    ],
+    "model": "models/rus",
+    "alphabet": "rus"
   }
 }
