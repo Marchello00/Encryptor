@@ -7,9 +7,9 @@ def _letter_range(start, end):
     return ''.join(map(chr, range(ord(start), ord(end) + 1)))
 
 
-russian_alphabet = ''.join(
+RUSSIAN_ALPHABET = ''.join(
     [_letter_range('а', 'е'), 'ё', _letter_range('ж', 'я')])
-russian_alphabet += russian_alphabet.upper()
+RUSSIAN_ALPHABET += RUSSIAN_ALPHABET.upper()
 
 
 class Alphabet:
@@ -38,11 +38,11 @@ class Alphabet:
         self.set_alphabet(string.ascii_letters + string.punctuation)
 
     def set_russian_alphabet(self):
-        self.set_alphabet(russian_alphabet)
+        self.set_alphabet(RUSSIAN_ALPHABET)
 
     def set_all(self):
         self.set_alphabet(string.ascii_letters +
-                          russian_alphabet + string.punctuation +
+                          RUSSIAN_ALPHABET + string.punctuation +
                           string.whitespace)
 
     def set_binary_alphabet(self):

@@ -214,20 +214,14 @@ def smart_open(file, mode):
 
 def get_alphabet(choise):
     alph = ab.Alphabet()
-    if choise == 'eng':
-        alph.set_letters_alphabet()
-    elif choise == 'engpunc':
-        alph.set_punctuation_alphabet()
-    elif choise == 'engup':
-        alph.set_big_letters_alphabet()
-    elif choise == 'rus':
-        alph.set_russian_alphabet()
-    elif choise == 'bin':
-        alph.set_binary_alphabet()
-    elif choise == 'hex':
-        alph.set_hexdigits_alphabet()
-    elif choise == 'all':
-        alph.set_all()
+    solver = {'eng': alph.set_letters_alphabet,
+              'engpunc': alph.set_punctuation_alphabet,
+              'engup': alph.set_big_letters_alphabet,
+              'rus': alph.set_russian_alphabet,
+              'bin': alph.set_binary_alphabet,
+              'hex': alph.set_hexdigits_alphabet,
+              'all': alph.set_all}
+    solver[choise]()
     return alph
 
 
