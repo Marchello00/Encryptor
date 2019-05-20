@@ -9,6 +9,7 @@ import src.caesar as caesar
 import src.vigenere as vigenere
 import src.vernam as vernam
 import src.analyser as analyser
+import src.enums as enums
 
 
 def encode_action(args):
@@ -155,15 +156,19 @@ def parse_args():
                               help='Trained model '
                                    'will be written to this file')
     train_parser.add_argument('--ngrams', '-n', type=int,
-                              help='N for n-grams analyse')
+                              help='N for n-grams analyse',
+                              default=enums.N_FOR_NGRAMS_DEFAULT)
     train_parser.add_argument('--punc', '-p', action='store_true',
                               help='If exist punctuation will be '
-                                   'also analysed')
+                                   'also analysed',
+                              default=enums.WITH_PUNC_DEFAULT)
     train_parser.add_argument('--top', '-t', type=int,
-                              help='How many most common words remember')
+                              help='How many most common words remember',
+                              default=enums.TOP_N_WORDS_DEFAULT)
     train_parser.add_argument('--count-avg', '-c', action='store_true',
                               help='Count average statistics on your text'
-                                   '(may work slower)')
+                                   '(may work slower)',
+                              default=enums.COUNT_AVG_DEFAULT)
     train_parser.set_defaults(act=train_action)
 
     hack_parser = subparsers.add_parser('hack', help='Try to hack message')
