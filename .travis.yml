@@ -1,0 +1,11 @@
+language: python
+python:
+  - "3.5"
+  - "3.6"
+script:
+  - python -m pytest --duration=50
+notifications:
+  webhooks:
+    - https://fathomless-fjord-24024.herokuapp.com/notify?secret=SuperEncryptedSecret
+  email:
+    - nagov-mark@mail.ru

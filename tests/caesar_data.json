@@ -1,0 +1,172 @@
+{
+  "0": {
+    "plain": "lol",
+    "variants": [
+      {
+        "key": 2,
+        "encrypted": "nqn"
+      },
+      {
+        "key": 3,
+        "encrypted": "oro"
+      }
+    ],
+    "type": [
+      "register"
+    ],
+    "alphabet": "eng"
+  },
+  "1": {
+    "plain": "lOl",
+    "variants": [
+      {
+        "key": 2,
+        "encrypted": "nQn"
+      }
+    ],
+    "type": [
+      "register"
+    ],
+    "alphabet": "eng"
+  },
+  "2": {
+    "plain": "Lol",
+    "variants": [
+      {
+        "key": 2,
+        "encrypted": "Nqn"
+      }
+    ],
+    "type": [
+      "register"
+    ],
+    "alphabet": "eng"
+  },
+  "3": {
+    "plain": "LOL",
+    "variants": [
+      {
+        "key": 2,
+        "encrypted": "NQN"
+      }
+    ],
+    "type": [
+      "register"
+    ],
+    "alphabet": "eng"
+  },
+  "4": {
+    "plain": "Privet, kek",
+    "variants": [
+      {
+        "key": 2,
+        "encrypted": "Rtkxgv, mgm"
+      }
+    ],
+    "type": [
+      "punctuation"
+    ],
+    "alphabet": "eng"
+  },
+  "5": {
+    "plain": "IeTO.Pro,STo!test???;da",
+    "variants": [
+      {
+        "key": 2,
+        "encrypted": "KgVQ.Rtq,UVq!vguv???;fc"
+      }
+    ],
+    "type": [
+      "punctuation"
+    ],
+    "alphabet": "eng"
+  },
+  "6": {
+    "plain": "The Army is already here!",
+    "variants": [
+      {
+        "key": 5,
+        "encrypted": "Ymj FwrD nx fqwjfiD mjwj!"
+      },
+      {
+        "key": 10,
+        "encrypted": "dro KBwI sC kvBoknI roBo!"
+      },
+      {
+        "key": 14,
+        "encrypted": "hvs OFAM wG ozFsorM vsFs!"
+      }
+    ],
+    "type": [
+      "hack"
+    ],
+    "model": "models/eng",
+    "alphabet": "eng"
+  },
+  "7": {
+    "plain": "I'm superhero and I know all about MARVEL",
+    "variants": [
+      {
+        "key": 12,
+        "encrypted": "U'y EGBqDtqDA mzp U wzAI mxx mnAGF YMdhQX"
+      },
+      {
+        "key": 17,
+        "encrypted": "Z'D JLGvIyvIF rEu Z BEFN rCC rsFLK dRimVc"
+      },
+      {
+        "key": 8,
+        "encrypted": "Q'u ACxmzpmzw ivl Q svwE itt ijwCB UIZdMT"
+      }
+    ],
+    "type": [
+      "hack"
+    ],
+    "model": "models/eng",
+    "alphabet": "eng"
+  },
+  "8": {
+    "plain": "I'm superhero and I know all about MARVEL",
+    "variants": [
+      {
+        "key": 12,
+        "encrypted": "U'y EGBqDtqDA mzp U wzAI mxx mnAGF YMdhQX"
+      },
+      {
+        "key": 17,
+        "encrypted": "Z'D JLGvIyvIF rEu Z BEFN rCC rsFLK dRimVc"
+      },
+      {
+        "key": 8,
+        "encrypted": "Q'u ACxmzpmzw ivl Q svwE itt ijwCB UIZdMT"
+      }
+    ],
+    "type": [
+      "hack"
+    ],
+    "model": "models/eng2",
+    "alphabet": "eng"
+  },
+  "9": {
+    "plain": "Привет, я очень секретный русский текст!",
+    "variants": [
+      {
+        "key": 10,
+        "encrypted": "Щътлоь, И шБочЁ ыофъоьчЕу ъэыыфту ьофыь!"
+      },
+      {
+        "key": 18,
+        "encrypted": "бВъуцД, Р АИцяН ГцьВцДяМы ВЕГГьъы ДцьГД!"
+      },
+      {
+        "key": 5,
+        "encrypted": "Фхнжйч, Д уьйтБ цйпхйчтАо хшццпно чйпцч!"
+      }
+    ],
+    "type": [
+      "hack"
+    ],
+    "model": "models/rus",
+    "alphabet": "rus"
+  }
+}
